@@ -1,12 +1,13 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { createCatalogDto } from "src/dtos/createCatalogDto";
+import { Catalog } from "src/entities/catalog.entity";
 
-@Controller('catalog')
+@Controller('catalogs')
 export class catalogController {
-    constructor(private readonly catalogService: catalogController) { }
+    constructor(private catalogService: catalogController) { }
 
     @Post()
-    create(@Body() createCatalogDto: createCatalogDto) {
-        return this.catalogService.create(createCatalogDto);
+    async createCatalog(@Body() createCatalogDto: createCatalogDto): Promise<Catalog> {
+        return await this.catalogService.createCatalog(createCatalogDto);
     }
 }
